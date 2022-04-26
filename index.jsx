@@ -45,6 +45,23 @@ function App() {
 
     console.log("phonetics: ", phonetics);
 
+    const handleSubmit = (e) => {
+        if (e.target.value === "") {
+            e.preventDefault();
+            return;
+        } else {
+            e.preventDefault();
+            setUrl(`https://api.dictionaryapi.dev/api/v2/entries/en/${query}`);
+        }
+    };
+
+    const handleKeypress = (e) => {
+        //it triggers by pressing the enter key
+        if (e.keyCode === 13) {
+            handleSubmit(e);
+        }
+    };
+
     return (
         <Container>
             <div className="search">
@@ -54,15 +71,12 @@ function App() {
                     placeholder="Search for a word..."
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
+                    onKeyDown={handleKeypress}
                 />
                 <button
                     className="button"
-                    type="button"
-                    onClick={() =>
-                        setUrl(
-                            `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`
-                        )
-                    }
+                    type="submit"
+                    onSubmit={handleSubmit}
                 >
                     Search
                 </button>
