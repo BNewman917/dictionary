@@ -5,19 +5,15 @@ function App() {
     const [url, setUrl] = useState(
         "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
     );
-    const [isLoading, setIsLoading] = useState(false);
     const [query, setQuery] = useState("");
-    const [audio, setAudio] = useState("");
 
     console.log("Rendering App");
 
     useEffect(() => {
         const getData = async () => {
-            setIsLoading(true);
             const result = await fetch(url);
             let data = await result.json();
             setData(data[0]);
-            setIsLoading(false);
         };
 
         getData();
@@ -43,45 +39,43 @@ function App() {
     });
 
     function hearIt() {
-        const audio = phonetics[0].audio;
-        new Audio(audio).play();
+        const clip = phonetics[0].audio;
+        new Audio(clip).play();
     }
 
     console.log("phonetics: ", phonetics);
 
     return (
         <Container>
-            <input
-                className="searchBar"
-                type="text"
-                placeholder="Search for a word..."
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-            />
-            <button
-                className="searchButton"
-                type="button"
-                onClick={() =>
-                    setUrl(
-                        `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`
-                    )
-                }
-            >
-                Search
-            </button>
-            <button onClick={hearIt}>Hear It</button>
-            {isLoading ? (
-                <div>Loading...</div>
-            ) : (
-                <div>
-                    <h2 className="word">Definition of "{word}"</h2>
-                    <ul className="definitionList">{wordMeanings}</ul>
-                </div>
-            )}
+            <div className="search">
+                <input
+                    className="searchBar"
+                    type="text"
+                    placeholder="Search for a word..."
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                />
+                <button
+                    className="button"
+                    type="button"
+                    onClick={() =>
+                        setUrl(
+                            `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`
+                        )
+                    }
+                >
+                    Search
+                </button>
+                <button className="button" onClick={hearIt}>
+                    Hear It
+                </button>
+            </div>
+            <div>
+                <h2 className="word">Definition of "{word}"</h2>
+                <ul className="pos">{wordMeanings}</ul>
+            </div>
         </Container>
     );
 }
 // ========================================
 ReactDOM.render(<App />, document.getElementById("root"));
-
-//  // "https://hn.algolia.com/api/v1/search?query=redux"
