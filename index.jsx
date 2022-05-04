@@ -63,7 +63,9 @@ function App() {
     });
 
     function hearIt() {
-        const clip = phonetics[0].audio;
+        const i = phonetics.findIndex((item) => item.audio.length > 0);
+        const clip = phonetics[i].audio;
+        console.log(clip);
         new Audio(clip).play();
     }
 
@@ -83,6 +85,8 @@ function App() {
             handleSubmit(e);
         }
     }
+
+    console.log(phonetics);
 
     return (
         <Container>
