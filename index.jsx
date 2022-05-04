@@ -6,8 +6,7 @@ function App() {
         "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
     );
     const [query, setQuery] = useState("");
-
-    console.log("Rendering App");
+    const [show, setShow] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
@@ -18,6 +17,31 @@ function App() {
 
         getData();
     }, [url]);
+
+    if (data === undefined) {
+        return (
+            <Container>
+                <div className="search">
+                    <input
+                        type="text"
+                        placeholder="Search for a word..."
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        onKeyDown={handleKeypress}
+                    />
+                    <button
+                        className="button"
+                        type="submit"
+                        value={query}
+                        onClick={handleSubmit}
+                    >
+                        Search
+                    </button>
+                </div>
+                <h3>Sorry, we couldn't find that word.</h3>
+            </Container>
+        );
+    }
 
     const { word, meanings, phonetics } = data;
 
@@ -43,24 +67,22 @@ function App() {
         new Audio(clip).play();
     }
 
-    console.log("phonetics: ", phonetics);
-
-    const handleSubmit = (e) => {
-        if (e.target.value === "") {
-            e.preventDefault();
+    function handleSubmit(e) {
+        console.log(e.target.value);
+        if (e.target.value.length === 0) {
             return;
         } else {
             e.preventDefault();
             setUrl(`https://api.dictionaryapi.dev/api/v2/entries/en/${query}`);
         }
-    };
+    }
 
-    const handleKeypress = (e) => {
+    function handleKeypress(e) {
         //it triggers by pressing the enter key
         if (e.keyCode === 13) {
             handleSubmit(e);
         }
-    };
+    }
 
     return (
         <Container>
@@ -76,7 +98,8 @@ function App() {
                 <button
                     className="button"
                     type="submit"
-                    onSubmit={handleSubmit}
+                    value={query}
+                    onClick={handleSubmit}
                 >
                     Search
                 </button>
