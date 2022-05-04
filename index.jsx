@@ -6,7 +6,6 @@ function App() {
         "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
     );
     const [query, setQuery] = useState("");
-    const [show, setShow] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
@@ -65,7 +64,6 @@ function App() {
     function hearIt() {
         const i = phonetics.findIndex((item) => item.audio.length > 0);
         const clip = phonetics[i].audio;
-        console.log(clip);
         new Audio(clip).play();
     }
 
@@ -83,10 +81,9 @@ function App() {
         //it triggers by pressing the enter key
         if (e.keyCode === 13) {
             handleSubmit(e);
+            1;
         }
     }
-
-    console.log(phonetics);
 
     return (
         <Container>
