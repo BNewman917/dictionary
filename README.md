@@ -20,7 +20,7 @@ Dictionary built using [Free Dictionary API](https://dictionaryapi.dev/)
 <h3>Future Plans</h3>
 
 - List of synonyms with link to their definitions 
-- Change 'Hear It' function to use the first available audio clip
+- ~~Change 'Hear It' function to use the first available audio clip~~
 
 <h3>Notes</h3>
 
