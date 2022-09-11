@@ -2,7 +2,7 @@
 
 <h3>Introduction</h3>
 
-A simple dictionary.
+A simple dictionary. Check out the site [here](https://bnewman917.github.io/dictionary/).
 
 <h3>Description</h3>
 
